@@ -14,6 +14,6 @@ async function main() {
     const run = await createRun(openai, thread, assistant.id);
     const result = await performRun(run, openai, thread)
 
-    console.log("hello world")h
+    
 }
 main();

@@ -26,5 +26,5 @@ export async function performRun(run: Run, client: OpenAI, thread: Thread) {
     const messages = await client.beta.threads.messages.list(thread.id) 
     const assistantMessage=messages.data.find(message => message.role ==='assistant');
 
-    return assistantMessage?.content[0]||{type:'text',text:{value:'No response from assistant',annotations:[]}};
+    return assistantMessage?.content[0]||{type:'text',text:{value:'No response from assistant',annotations:[]}}; 
 }
