@@ -1,11 +1,10 @@
 import OpenAI from "openai";
 import { Thread } from "openai/resources/beta/threads/threads";
 import { Run } from "openai/resources/beta/threads/runs/runs";
-import { handleRunToolCalls } from "./handleRunToolCall.js"
-
+import { handleRunToolCall } from "./handleRunToolCall.js";
 export async function performRun(run: Run, client: OpenAI, thread: Thread) {
     while (run.status === "requires_action") {
-        run = await handleRunToolCalls(run, client, thread);
+        run = await handleRunToolCall(run, client, thread);
     }
     if (run.status === "failed") {
         const errorMessage = `I encountered an error:${run.last_error?.message || "unknown erorr"}`;
@@ -23,8 +22,8 @@ export async function performRun(run: Run, client: OpenAI, thread: Thread) {
         }
 
     }
-    const messages = await client.beta.threads.messages.list(thread.id) 
-    const assistantMessage=messages.data.find(message => message.role ==='assistant');
+    const messages = await client.beta.threads.messages.list(thread.id)
+    const assistantMessage = messages.data.find(message => message.role === 'assistant');
 
-    return assistantMessage?.content[0]||{type:'text',text:{value:'No response from assistant',annotations:[]}}; 
+    return assistantMessage?.content[0] || { type: 'text', text: { value: 'No response from assistant', annotations: [] } };
 }

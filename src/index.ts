@@ -3,9 +3,10 @@ import { createAssistant } from "./openai/createAssistant.js";
 import { createThread } from "./openai/createThread.js";
 import { createRun } from "./openai/createRun.js";
 import { performRun } from "./openai/performRun.js";
+import "dotenv/config";
 async function main() {
     const openai = new OpenAI({
-        apiKey: "YOUR_OPENAI_API_KEY"
+        apiKey: process.env.OPENAI_API_KEY
     });
 
     const message = "Hello ,Iam Muahngi Elioda"
@@ -14,6 +15,7 @@ async function main() {
     const run = await createRun(openai, thread, assistant.id);
     const result = await performRun(run, openai, thread)
 
-    
+    console.log(result)
+
 }
 main();
