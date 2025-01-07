@@ -9,7 +9,7 @@ async function main() {
         apiKey: process.env.OPENAI_API_KEY
     });
 
-    const message = "Hello ,Iam Muahngi Elioda"
+    const message = "Hello ,can you get my wallet balance? My wallet address  is 0xC68E81bb5Eed8d1be9F5F6F729721835D7370888 "
     const assistant = await createAssistant(openai);
     const thread = await createThread(openai, message);
     const run = await createRun(openai, thread, assistant.id);
